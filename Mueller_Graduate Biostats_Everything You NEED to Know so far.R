@@ -132,3 +132,47 @@ boxcox(lm(Y~1)) #Generates a plot of the likelihood of a given transformed data 
 RY<- rank(Y)
 #Back transformation
 #impossible, that's why we don't like it!
+
+
+
+#rank transformed t tests
+
+wilcox.test(G1,G2)
+
+
+#Permutation test of medians
+
+set.seed(26)
+G1<-rexp(15,rate = 2)#Make up some non normal data.
+G2<-rexp(15,rate = 12)
+
+hist(G1)
+hist(G2)
+
+
+totalgroups<-c(G1,G2)
+hist(totalgroups)
+abline(v=median(G1),col="lightgreen",lwd=2)
+abline(v=median(G2),col="darkolivegreen",lwd=2)
+deltamed<-median(G1)-median(G2)# The medinas are different! But is it significant??
+
+#how often would I get a delta median of 0.3686405 or more extreme if the null is true?
+
+group<-c(rep("G1",15),rep("G2",15))
+cbind(group,totalgroups)
+
+
+sampled_medians<-NA
+
+for(i in 1:10000){
+  tempdat<-sample(x = totalgroups,size = 30,replace = F)
+  sampled_medians[i]<-median(tempdat[1:15])-median(tempdat[16:30])
+}
+
+hist(sampled_medians)
+abline(v=deltamed,lwd=2,col='darkorchid')
+abline(v=-deltamed,lwd=2,col='darkorchid')
+
+
+(sum(sampled_medians>deltamed)+sum(sampled_medians<-deltamed))/10000 # p value
+
