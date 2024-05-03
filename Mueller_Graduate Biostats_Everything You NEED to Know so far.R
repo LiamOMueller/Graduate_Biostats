@@ -176,3 +176,20 @@ abline(v=-deltamed,lwd=2,col='darkorchid')
 
 (sum(sampled_medians>deltamed)+sum(sampled_medians<-deltamed))/10000 # p value
 
+
+
+
+
+
+#####Linear Models#####
+
+
+modelobject<-lm(Y~X) #build a linear model 
+plot(modelobject) #Fast way to test the assumptions of the model
+anova(modelobject) #If you meet the assumptions of the model, an anova will give you a p value
+
+TukeyHSD(aov(Y~X)) #Post hoc test should only be performed if the null hypothesis is rejected. Have to use an aov() model object instead of a lm() model object. I don't know why.
+
+
+
+
