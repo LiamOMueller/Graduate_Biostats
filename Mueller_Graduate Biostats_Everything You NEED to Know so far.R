@@ -190,6 +190,29 @@ anova(modelobject) #If you meet the assumptions of the model, an anova will give
 
 TukeyHSD(aov(Y~X)) #Post hoc test should only be performed if the null hypothesis is rejected. Have to use an aov() model object instead of a lm() model object. I don't know why.
 
+summary(modelobject) #Examine specific parameters and calculate r squared
+
+######MLR####
+modelobject<-lm(Y~X1+X2...)
+#multicollinearity
+
+library(car)
+vif(modelobject)# numbers over 5 are bad, numbers over 10 are worse
+
+#AIC
+step(modelobject)# smallest AIC is best. models within 2 AIC are considered similar (the choice is yours to make)
+
+Anova(modelobject)#Type 2 sums of squares
+summary(modelobject)
+
+#don't do! anova(modelobject) unless you are sure about your sums of squares!
+
+#3d plots
+library(rgl)
+
+#More to come here in the next few weeks. Hang tight.
+
+
 
 
 
