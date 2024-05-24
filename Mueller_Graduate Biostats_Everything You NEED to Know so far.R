@@ -213,6 +213,26 @@ library(rgl)
 #More to come here in the next few weeks. Hang tight.
 
 
+####Mixed effect Models####
 
+library(lme4)
 
+#Random intercept
+model<-lmer(Y~ X + (1|block))
+Null<-lmer(Y~ (1|block))
+
+#Random intercept and slope
+
+model<-lmer(Y ~ X + (X|block))
+null<-lmer(Y ~ (X|block))
+
+#Nested 
+
+model<-lmer(Y~ X + (1|Plate:X)+(1|Plate))
+null<-lmer(Y~ (1|Plate:X)+(1|Plate))
+
+#All of the models above can have multiple variables and AIC model selection can still be used.
+
+#Hypothesis testing mixed effect models with likelyhood ratio tests
+anova(null,model)
 
