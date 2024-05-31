@@ -236,3 +236,20 @@ null<-lmer(Y~ (1|Plate:X)+(1|Plate))
 #Hypothesis testing mixed effect models with likelyhood ratio tests
 anova(null,model)
 
+#####GLM####
+
+#Binomial
+
+glmmod<-glm(Y~X,family="binomial")
+
+#Test residuals
+#Using the residual deviance, test using a chisquare
+
+pchisq(q =glmmod$deviance,df = "n-k")#If we fail to reject the null that means the residual values are not different from a binomial dist.
+
+
+summary(glmmod) #The coefficients are in log odds ratios. exponentiation to get slope in odds ratio numbers.
+
+#R squared
+
+# 1-(residual deviance/null deviance)
